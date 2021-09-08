@@ -1,0 +1,12 @@
+{
+  "name": "simpledi",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "scripts": {
+    "test": "node test.js",
+    "build:esm": "esbuild --target=chrome70 --outfile=dist/index.esm.js --format=esm src/index.js",
+    "build:cjs": "esbuild --target=node14 --outfile=dist/index.js --format=cjs src/index.js"
+  },
+  "license": "MIT"
+}
