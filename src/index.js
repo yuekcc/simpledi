@@ -1,21 +1,28 @@
-const instances = new WeakMap();
-const ctors = new Map();
+const instances = new WeakMap(); // 缓存已经创建的实例
+const ctors = new Map(); // 保存构造函数及其依赖关系
 
+// 创建一个对象，并保存到缓存中
 function createObject(ctor, depObjects) {
   instances.set(ctor, Reflect.construct(ctor, depObjects));
   return instances.get(ctor);
 }
 
+// 创建或获取实例
 function createOrGetInstance(ctor) {
+    
+  // 先检查缓存
   if (instances.has(ctor)) {
     return instances.get(ctor);
   }
-
+  
   const deps = ctors.get(ctor) || [];
+  
+  // 没有依赖项的，直接创建实例
   if (deps.length === 0) {
     return createObject(ctor, []);
   }
 
+  // 递归创建依赖项的实例
   const depObjects = [];
   for (const depCtor of deps) {
     depObjects.push(createOrGetInstance(depCtor, ctor));
