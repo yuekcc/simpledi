@@ -10,7 +10,7 @@
 
 ## 警告
 
-**玩具项目，不要太认真**
+**☢ 玩具项目 ☢**
 
 生产性项目推荐使用 [inversify](https://www.npmjs.com/package/inversify)
 
