@@ -1,12 +1,45 @@
 {
   "name": "simpledi",
   "version": "1.0.0",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "main": "index.js",
   "scripts": {
     "test": "node test.js",
-    "build:esm": "esbuild --target=chrome70 --outfile=dist/index.esm.js --format=esm src/index.js",
-    "build:cjs": "esbuild --target=node14 --outfile=dist/index.js --format=cjs src/index.js"
+    "build": "sh build.sh"
   },
-  "license": "MIT"
+  "author": "zhanlefeng",
+  "license": "MIT",
+  "prettier": {
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "avoid",
+    "endOfLine": "auto"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "commonjs": true,
+      "es2021": true,
+      "jest": true,
+      "node": true
+    },
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "plugins": [
+      "prettier"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ]
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.39",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1"
+  }
 }

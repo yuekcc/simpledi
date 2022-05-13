@@ -1,10 +1,10 @@
-const { addService, useService } = require("./dist");
-const assert = require("assert");
+const { addService, useService } = require('./dist');
+const assert = require('assert');
 
 // 被管理的中对名必须使用 class 语法
 class NameService {
   get name() {
-    return "tom";
+    return 'tom';
   }
 }
 
@@ -15,7 +15,6 @@ class AgeService {
 }
 
 class MyService {
-    
   // 在构建函数中注入依赖
   constructor(nameService, ageService) {
     this.nameService = nameService;
@@ -27,7 +26,7 @@ class MyService {
   }
 }
 
-function testMain() {
+!(function makeObject() {
   // 手动注册到 simpledi 中，第二个参数是依赖对象 class 的数组
   // 需要保持顺序
   addService(MyService, [NameService, AgeService]);
@@ -39,6 +38,29 @@ function testMain() {
   // 两次调用 useService，实际上返回都是同一个对象
   const myService2 = useService(MyService);
   assert.equal(myService2, myService1);
+  console.log(`test makeObject ... ok`);
+})();
+
+class A {
+  constructor(C) {}
+}
+class B {
+  constructor(a) {}
+}
+class C {
+  constructor(b) {}
 }
 
-testMain();
+// 循环依赖检查
+!(function haltOnCycleDependency() {
+  assert.throws(() => {
+    addService(A, [C]); // A -> C
+    addService(B, [A]); // B -> A
+    addService(C, [B]); // C -> B
+
+    const a = useService(A);
+    console.log(a);
+  });
+
+  console.log(`test haltOnCycleDependency ... ok`);
+})();

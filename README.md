@@ -5,6 +5,7 @@
 - [x] lazy 初始化
 - [x] 只支持构建函数依赖注入
 - [x] 单实例
+- [x] 支持循环依赖检查（throws error）
 
 使用见 [test.js](test.js)
 
